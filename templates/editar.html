@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Editar cadastro</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    </head>
+    <body style="padding: 2%;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="index.html">Cadastro</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    {% if logado %}
+                        <a class="nav-link" href="{{ url_for('rotaEditar') }}">{{ nome }}</a>
+                        <a class="nav-link" href="{{ url_for('sair') }}">Sair</a>
+                    {% else %}
+                        <a class="nav-link" href="{{ url_for('rotaLogin') }}">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <div class="content" style="padding: 1%">
+            <h1>Editar cadastro</h1>
+            {% if erro %}
+                <p>Erro: {{ erro }}</p>
+            {% endif %}
+            <form class="form-group" action="/rotaEditar" method="post">
+                <input class="form-control" placeholder="Nome completo" type="text" name="Nome" value=''' + str(session['nome']) + '''>
+                <input class="form-control" placeholder="Email" type="email" name="Email" value=''' + str(session['email']) + '''>
+                <input class="form-control" placeholder="Senha de 8 a 16 caracteres" type="password" name="Senha" minlength="8" maxlength="16">
+                <input class="form-control" type="submit" value="Editar">
+            </form>
+            <a href="/excluir">Excluir conta</a>
+        </div>
+    </body>
+</html>
