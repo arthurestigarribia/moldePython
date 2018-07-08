@@ -32,8 +32,8 @@
                 <p>Erro: {{ erro }}</p>
             {% endif %}
             <form class="form-group" action="/rotaEditar" method="post">
-                <input class="form-control" placeholder="Nome completo" type="text" name="Nome" value=''' + str(session['nome']) + '''>
-                <input class="form-control" placeholder="Email" type="email" name="Email" value=''' + str(session['email']) + '''>
+                <input class="form-control" placeholder="Nome completo" type="text" name="Nome" value=''' + str(session['nome']) + ''' minlength="5" maxlength="1000">
+                <input class="form-control" placeholder="Email" type="email" name="Email" value=''' + str(session['email']) + ''' minlength="5" maxlength="1000">
                 <input class="form-control" placeholder="Senha de 8 a 16 caracteres" type="password" name="Senha" minlength="8" maxlength="16">
                 <input class="form-control" type="submit" value="Editar">
             </form>

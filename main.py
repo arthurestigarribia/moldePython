@@ -7,8 +7,6 @@ import hashlib
 
 app = Flask(__name__)
 
-UsuarioDAO().createTable()
-
 @app.route('/index')
 def index():
     if 'id' in session:
@@ -43,30 +41,17 @@ def paginaLogin(erro = 0):
 @app.route('/rotaLogin', methods=['GET', 'POST'])
 def rotaLogin():
     if request.method == 'POST':
-        todosUsuarios = UsuarioDAO().selectAll()
+        if UsuarioDAO().existeDados(request.form['Email'], request.form['Senha']):
+            u = UsuarioDAO().selectDados(request.form['Email'], request.form['Senha'])
 
-        b = False
-        u = Usuario(None, None, None)
-
-        for usuario in todosUsuarios:
-            m = hashlib.md5()
-            m.update(request.form['Senha'])
-
-            print str(m.hexdigest()) + " " + str(usuario.getSenha())
-
-            if str(usuario.getEmail()) == request.form['Email'] and str(usuario.getSenha()) == m.hexdigest():
-                b = True
-                u = usuario
-                break
-        
-        if b:
             session['id'] = u.getId()
             session['nome'] = u.getNome()
             session['email'] = request.form['Email']
 
             return redirect(url_for('index'))
         
-        return paginaLogin(1)
+        else:
+            return paginaLogin(1)
     else:
         return paginaLogin(0)
 
@@ -82,18 +67,9 @@ def paginaCadastro(erro = 0):
 @app.route('/rotaCadastro', methods=['GET', 'POST'])
 def rotaCadastro():
     if request.method == 'POST':
-        todosUsuarios = UsuarioDAO().selectAll()
+        u = Usuario(request.form['Nome'], request.form['Email'], request.form['Senha'])
 
-        b = True
-
-        for usuario in todosUsuarios:
-            if usuario.getEmail() == request.form['Email'] and usuario.getSenha() == hashlib.md5(request.form['Senha']):
-                b = False
-                break
-                
-        if b and request.form['Nome'] and request.form['Email'] and request.form['Senha']:
-            u = Usuario(request.form['Nome'], request.form['Email'], request.form['Senha'])
-
+        if (not UsuarioDAO().existe(u)) and (request.form['Nome'] and request.form['Email'] and request.form['Senha']):
             UsuarioDAO().insert(u)
 
             session['id'] = UsuarioDAO().lastId()
@@ -118,8 +94,9 @@ def paginaEditar(erro = 0):
 @app.route('/rotaEditar', methods=['GET', 'POST'])
 def rotaEditar():
     if request.method == 'POST':
-        if request.form['Nome'] and request.form['Email'] and request.form['Senha']:
-            u = Usuario(request.form['Nome'], request.form['Email'], request.form['Senha'])
+        u = Usuario(request.form['Nome'], request.form['Email'], request.form['Senha'])
+
+        if (not UsuarioDAO().existe(u)) and (request.form['Nome'] and request.form['Email'] and request.form['Senha']):
 
             UsuarioDAO().update(u, session['id'])
 

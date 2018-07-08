@@ -32,8 +32,8 @@
                 <p>Erro: {{ erro }}</p>
             {% endif %}
             <form class="form-group" action="/rotaCadastro" method="post">
-                <input class="form-control" placeholder="Nome completo" type="text" name="Nome">
-                <input class="form-control" placeholder="Email" type="email" name="Email">
+                <input class="form-control" placeholder="Nome completo" type="text" name="Nome" minlength="5" maxlength="1000">
+                <input class="form-control" placeholder="Email" type="email" name="Email" minlength="5" maxlength="1000">
                 <input class="form-control" placeholder="Senha de 8 a 16 caracteres" type="password" name="Senha" minlength="8" maxlength="16">
                 <input class="form-control" type="submit" value="Cadastrar">
             </form>
