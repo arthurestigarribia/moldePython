@@ -11,7 +11,7 @@
     </head>
     <body style="padding: 2%;">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">Cadastro</a>
+            <a class="navbar-brand" href="/index">Cadastro</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,8 +28,11 @@
         </nav>
         <div class="content" style="padding: 1%">
             <h1>Cadastro</h1>
-            {% if erro %}
-                <p>Erro: {{ erro }}</p>
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    Erro: {{ error }}
+                </div>
+            {% else %}
             {% endif %}
             <form class="form-group" action="/rotaCadastro" method="post">
                 <input class="form-control" placeholder="Nome completo" type="text" name="Nome" minlength="5" maxlength="1000">

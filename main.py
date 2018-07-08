@@ -21,7 +21,7 @@ def sair():
     session.pop('email', None)
     session.pop('senha', None)
 
-    return redirect(url_for('rotaLogin'))
+    return redirect(url_for('index'))
 
 @app.route('/excluir')
 def excluir():
@@ -30,13 +30,13 @@ def excluir():
     return redirect(url_for('logout'))
 
 @app.route('/login')
-def paginaLogin(erro = 0):
+def paginaLogin(erro = ""):
     if 'id' in session:
         return redirect(url_for('index'))
     elif erro != 0:
         return render_template("login.html", error=erro)
     else:
-        return render_template("login.html", error=0)
+        return render_template("login.html", error="")
 
 @app.route('/rotaLogin', methods=['GET', 'POST'])
 def rotaLogin():
@@ -51,18 +51,18 @@ def rotaLogin():
             return redirect(url_for('index'))
         
         else:
-            return paginaLogin(1)
+            return paginaLogin("Usuario ou senha incorretos.")
     else:
-        return paginaLogin(0)
+        return paginaLogin("")
 
 @app.route('/cadastro')
-def paginaCadastro(erro = 0):
+def paginaCadastro(erro = ""):
     if 'id' in session:
         return redirect(url_for('index'))
     elif erro != 0:
         return render_template("cadastro.html", error=erro)
     else:
-        return render_template("cadastro.html", error=0)
+        return render_template("cadastro.html", error="")
 
 @app.route('/rotaCadastro', methods=['GET', 'POST'])
 def rotaCadastro():
@@ -78,18 +78,18 @@ def rotaCadastro():
 
             return redirect(url_for('index'))
         else:
-            return paginaCadastro(1)
+            return paginaCadastro("Cadastro nao efetuado.")
     else:
-        return paginaCadastro(0)
+        return paginaCadastro("")
 
 @app.route('/editar')
-def paginaEditar(erro = 0):
+def paginaEditar(erro = ""):
     if not ('id' in session):
         return redirect(url_for('login'))
     elif erro != 0:
         return render_template("editar.html", logado=True, nome = session['nome'], error=erro)
     else:
-        return render_template("editar.html", logado=True, nome = session['nome'], error=0)
+        return render_template("editar.html", logado=True, nome = session['nome'], error="")
 
 @app.route('/rotaEditar', methods=['GET', 'POST'])
 def rotaEditar():
@@ -105,9 +105,9 @@ def rotaEditar():
 
             return redirect(url_for('index'))
         else:
-            return paginaEditar(1)
+            return paginaEditar("Edicao nao realizada.")
     else:
-        return paginaEditar(0)
+        return paginaEditar("")
 
 if __name__ == '__main__':
     app.debug = True
