@@ -23,6 +23,18 @@
 
 {% block content %}
 
-<h1>Página inicial</h1>
+<h1>Editar</h1>
+
+<form action="/fazEdicao" method="post">
+    <input class="form-control" type="text" name="nome" placeholder="Nome" value="{{ nome }}">
+    <input class="form-control" type="text" name="email" placeholder="Email" value="{{ email }}">
+    <input class="form-control" type="password" name="senha" placeholder="Senha">
+    <input class="form-control" type="submit" value="Atualizar">
+</form>
+
+<h1>Ações</h1>
+
+<a href='/fazLogout'>Fazer logout</a>
+<a href='/exclui'>Excluir conta</a>
 
 {% endblock %}
