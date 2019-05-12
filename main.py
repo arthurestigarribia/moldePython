@@ -3,7 +3,7 @@
 from usuario import *
 from usuariodao import *
 from flask import *
-import md5
+import hashlib
 import os
 import sys
 
@@ -22,7 +22,7 @@ def getUsuario(email):
     return None
 
 def verificaLogin(email, senha):
-    return (getUsuario(email) and md5.new(senha).hexdigest() == getUsuario(email).senha) == True
+    return (getUsuario(email) and hashlib.md5(senha.encode()).hexdigest() == getUsuario(email).senha) == True
 
 @app.before_request
 def antesDaRota():
@@ -46,7 +46,7 @@ def paginaLogin():
         acao = "/edicao"
         textologin = session['nome']
 
-        redirect('/')
+        return redirect('/')
     else:
         acao = "/login"
         textologin = "Entrar ou cadastrar"
@@ -65,7 +65,7 @@ def fazLogin():
     
         return redirect('/')
     else:
-        return redirect('/login')
+        return render_template("login.html", acao="/login", textologin="Entrar ou cadastrar", erro="Login ou senha inválidos.")
 
 @app.route('/fazCadastro', methods = ['POST'])
 def fazCadastro():
@@ -83,7 +83,7 @@ def fazCadastro():
 
         return redirect('/')
     else:
-        return redirect('/login')
+        return render_template("login.html", acao="/login", textologin="Entrar ou cadastrar", erro="Login ou senha inválidos.")
 
 @app.route('/fazLogout')
 def fazLogout():
@@ -150,8 +150,4 @@ def fazEdicao():
 def erro(e):
     return render_template('404.html'), 404
 
-if __name__ == '__main__':
-	# para arrumar os acentos (principalmente no windows)
-	reload(sys)
-	sys.setdefaultencoding('UTF-8')
-	app.run()
+app.run()
