@@ -133,7 +133,7 @@ def fazEdicao():
         email = request.form['email']
         senha = request.form['senha']
 
-        if getUsuario(email) == None:
+        if getUsuario(email) == None or session['id'] == getUsuario(email).id:
             u = Usuario(0, nome, email, senha)
             udao.edita(u, session['id'])
 
