@@ -1,5 +1,4 @@
 # moldePython
-
 ## EN-US
 ### Description
 This is a basic registration system containing Python codes for user registration, login, logout, editing and deletion pages. Requires the PostgreSQL database and the following libraries: pip, Flask and psycopg2.
