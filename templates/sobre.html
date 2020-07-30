@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block header %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<a class="navbar-brand" href="/">Sobre</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNav">
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" href="/">Página inicial</a>
+			</li>
+			<li>
+				<a class="nav-link" href="{{ acao }}">{{ textologin }}</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+<h1>Sobre</h1>
+
+<p>Molde Python 2.0 - Desenvolvido por Arthur Estigarribia</p>
+
+<p>Observação: Utilizamos cookies do seu nome e endereço de email para o site funcionar.</p>
+
+{% endblock %}
