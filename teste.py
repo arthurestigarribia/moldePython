@@ -1,5 +1,7 @@
 #-* coding: utf8 -*#-
 
+# Arquivo de teste
+
 from usuario import *
 from usuariodao import *
 from flask import *
